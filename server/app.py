@@ -71,3 +71,19 @@ class SingleEpisodeResource(Resource):
             return '', 204
         else:
             return {'error': 'Episode not found'}, 404
+
+# Resource for handling guests
+class GuestResource(Resource):
+    def get(self):
+        # Retrieve all guests and return as a list of dictionaries
+        guests = Guest.query.all()
+        data = [
+            {
+                'id': guest.id,
+                'name': guest.name,
+                'occupation': guest.occupation
+            }
+            for guest in guests
+        ]
+        return data, 200
+
