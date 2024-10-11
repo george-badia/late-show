@@ -20,3 +20,19 @@ class Episode(db.Model):
             "appearances": [appearance.to_dict() for appearance in self.appearances]
         }
 
+# Guest model
+class Guest(db.Model):
+    __tablename__ = 'guests'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    occupation = db.Column(db.String)
+    appearances = db.relationship('Appearance', back_populates='guest')
+   #convert the Guest object to a dictionary
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "occupation": self.occupation
+        }
+
