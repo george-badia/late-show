@@ -31,3 +31,43 @@ class EpisodeResource(Resource):
         ]
         return data, 200
 
+# Resource for handling a single episode
+class SingleEpisodeResource(Resource):
+    def get(self, id):
+        # Retrieve a specific episode by id
+        episode = Episode.query.get(id)
+        if episode:
+            # If found, return episode data including appearances
+            data = {
+                'id': episode.id,
+                'date': episode.date,
+                'number': episode.number,
+                'appearances': [
+                    {
+                        'episode_id': appearance.episode_id,
+                        'guest': {
+                            'id': appearance.guest.id,
+                            'name': appearance.guest.name,
+                            'occupation': appearance.guest.occupation
+                        },
+                        'id': appearance.id,
+                        'rating': appearance.rating,
+                        'guest_id': appearance.guest_id,
+                    }
+                    for appearance in episode.appearances
+                ]
+            }
+            return data, 200
+        else:
+            # If not found, return error
+            return {'error': 'Episode not found'}, 404
+
+    def delete(self, id):
+        # Delete a specific episode by id
+        episode = Episode.query.get(id)
+        if episode:
+            db.session.delete(episode)
+            db.session.commit()
+            return '', 204
+        else:
+            return {'error': 'Episode not found'}, 404
