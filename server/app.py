@@ -146,6 +146,6 @@ api.add_resource(SingleEpisodeResource, '/episodes/<int:id>')
 api.add_resource(GuestResource, '/guests')
 api.add_resource(AppearanceResource, '/appearances')
 
-# Run the app
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
