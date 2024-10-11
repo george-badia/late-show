@@ -66,6 +66,8 @@ The Late Show API models a talk show database with three primary entities:
 
 ## Endpoints
 
+The API will be available at `http://localhost:5555`.
+
 ### GET /episodes
 
 List all episodes with their id, date, and number:
